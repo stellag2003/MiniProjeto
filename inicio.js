@@ -4,10 +4,45 @@ const rl = readline.createInterface({
      output: process.stdout,
     });
 
-    const alunos = ['Harry', 'Rony', 'Hermione', 'Simas', 'Dino', 'Parvati', 'Padma', 'Neville'];
-    const idadeAlunos = [15,16,15,14,16,15,15,14];
-    const notas = [[10,8,7,6], [5,8,4,9], [10,10,10,8], [6,5,8,4], [10,8,8,10], [10,8,8,10], [7,9,8,9]];
+    const alunos = [ // esse é um array de objetos, cada aluno é um objeto
+    {
+        nome: 'Harry Potter',
+        idade: 15,
+        notas: [10,8,7,6],
+    },
 
+    {
+        nome: 'Ronald Weasley',
+        idade: 16,
+        notas: [5,8,4,9],
+    },
+
+    {
+        nome:'Hermione Granger',
+        idade: 15,
+        notas: [10,10,10,8],
+    },
+
+    {
+        nome: 'Dino Thomas',
+        idade: 14,
+        notas: [10,8,8,10]
+    },
+
+    {
+        nome: 'Parvati Patil',
+        idade: 15,
+        notas: [9,6,7,10]
+    },
+
+    {
+        nome: 'Padma Patil',
+        idade: 15,
+        notas: [10,6,8,10]
+    }
+
+    ];
+    
     function menuAlunos(){ // essa função cria o menu
         console.log('......................................................');
         console.log('....Seja bem-vindo(a) ao Consulta Aluno Grifinória....');
@@ -30,34 +65,49 @@ const rl = readline.createInterface({
         console.log('......................................................');
     }
 
+    function relatorioAlunos(){ // imprime todos os nomes dos alunos 
+      console.log('..........Relatório Alunos Grifinória...............');
+
+         alunos.forEach(aluno=> {
+            
+             console.log(aluno.nome);
+             
+         });
+
+      console.log('....................................................');
+        
+    }
+
     function cadastraAlunos(){ // essa função cadastra, ela pede o nome do aluno, idade e notas
         rl.question('Por favor, digite o nome do novo bruxinho(a) para o cadastro! ', (resposta) => {
 
-            alunos.push(resposta);
-            console.log(`Lista Atualizada ${alunos}`);
+            const alunoNovo = {};
+            alunos.push(alunoNovo);
+            alunoNovo.nome = resposta;
+            console.log(alunos);
             
-
              rl.question(' Agora digite a idade do novo bruxinho(a)! ', (idade) =>{
 
-                    idadeAlunos.push(idade);
-                    console.log(`Lista de idade atualizada ${idadeAlunos}`);
+                    alunoNovo.idade = idade;
+                    //console.log(`Lista de idade atualizada ${idadeAlunos}`);
+                    console.log(alunos);
 
+                    // for (let i = 0; i < 4; i++) {
 
-            rl.question(' Agora digite 4 notas do novo bruxinho(a)! ', (nota) =>{
+                    //      rl.question(' Agora digite 4 notas do novo bruxinho(a)! ', (nota) =>{
 
-                notas.push(nota);
-                console.log(`Lista de notas atualizada ${notas}`);
+                    //         alunoNovo.notas = [nota][i];
+                               
+                    //     });
 
-                
+                    // }
+                    // console.log(alunoNovo.notas);
+
+                    // alunoNovo.notas = [];
+             
             });
-
-                
-            });
-
-            
-        
+    
         });
-
         
     }
 
@@ -67,8 +117,17 @@ const rl = readline.createInterface({
         rl.question("Digite o número da opção ", (resposta) =>{
 
             switch (resposta) { // aqui o swith verifica qual o número e executa funções diferentes, de acordo com a resposta
+            case '0':
+                console.log('Programa encerrado, Hogwartes agradece seu acesso!');
+                break;
+
             case '1':
                 cadastraAlunos();
+                break;
+
+            case '2':
+                relatorioAlunos();
+                menuAlunos();
                 break;
         
             default:
