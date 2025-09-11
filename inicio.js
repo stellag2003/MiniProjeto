@@ -4,7 +4,7 @@ const rl = readline.createInterface({
      output: process.stdout,
     });
 
-    const alunos = [ // esse é um array de objetos, cada aluno é um objeto
+    const alunos = [ // esse é um array de objetos, cada aluno é um objeto      
     {
         nome: 'Harry Potter',
         idade: 15,
@@ -43,7 +43,7 @@ const rl = readline.createInterface({
 
     ];
 
-    function relatorioAlunos(){ // imprime todos os nomes dos alunos 
+    function relatorioAlunos(){ // imprime o nome de todos os alunos 
       console.log('..........Relatório Alunos Grifinória...............');
 
          alunos.forEach(aluno=> {
@@ -126,9 +126,33 @@ const rl = readline.createInterface({
         
     }
 
-    function calculaMediaGeral(){
-        resultado = alunos.reduce(acumulador, atual => atual.notas + acumulador, 0)
-        console.log(resultado);
+    function calculaMediaGeral(){ // calcula a média geral de notas da turma
+
+        let todasNotas = []; // array vazio para acumular todas as notas
+
+        for (let aluno of alunos) { // esse for of acessa o array alunos, pega todas as chaves notas e cria um novo array, só com as notas dos alunos
+
+            todasNotas = todasNotas.concat(aluno.notas);
+
+        }
+
+        let resultado = todasNotas.reduce((acumulador, atual) => atual + acumulador, 0) // soma de todas as notas
+
+        let mediaGeral = resultado / todasNotas.length;
+        console.log(`A média geral da turma é: ${mediaGeral.toFixed(1)}`);
+       
+    }
+
+    function calculaMediaALuno() // calcula a média individual dos alunos
+    {
+        for( let aluno of alunos)
+        {
+            const soma = aluno.notas.reduce((acum, atual) => acum + atual);
+            const mediaIndividual = soma / aluno.notas.length;
+
+            console.log(`A média geral de ${aluno.nome} é ${mediaIndividual}`);
+        }
+
     }
 
     function inicio() // essa função chama a menuAlunos() e logo depois pega o número que o usuário digitou
@@ -177,12 +201,20 @@ const rl = readline.createInterface({
                 buscaAluno();
                 console.log("\n")
                 break;
+
+            case '4':
+                console.log("\n")
+                calculaMediaALuno();
+                console.log("\n")
+                break;
         
             case '5':
                 console.log("\n")
                 calculaMediaGeral();
                 console.log("\n")
                 break;
+
+            
         
             default:
                 console.log("\n")
