@@ -37,8 +37,9 @@ O código está dividido em **módulos** para manter a organização:
 1. Clone este repositório
 
    ```bash
-   git clone https://github.com/seu-usuario/seu-repositorio.git
-   cd seu-repositorio
+   git clone https://github.com/stellag2003/MiniProjeto.git
+   cd MiniProjeto
+
    ```
 
 2. Instale as dependências
