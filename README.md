@@ -6,17 +6,17 @@ Ele permite cadastrar, editar e excluir estudantes, além de registrar suas nota
 
 ## ✨ Funcionalidades
 
-* 👤 **Cadastro de estudantes** (nome e idade)
-* 📝 **Cadastro de notas** individuais para cada estudante
-* 📋 **Listagem de estudantes**
-* 📊 **Cálculo da média** de cada aluno
-* 🏆 **Aluno destaque** (maior média da turma)
-* 📈 **Média da turma**
-* 🔍 **Busca de estudantes por nome**
-* ✅ **Listagem de aprovados, em recuperação e reprovados**
-* ✏️ **Edição de dados** de um aluno já existente
-* ❌ **Exclusão de estudantes**
-* 🚪 **Encerramento do programa**
+*  **Cadastro de estudantes** (nome e idade)
+*  **Cadastro de notas** individuais para cada estudante
+*  **Listagem de estudantes**
+*  **Cálculo da média** de cada aluno
+*  **Aluno destaque** (maior média da turma)
+*  **Média da turma**
+*  **Busca de estudantes por nome**
+*  **Listagem de aprovados, em recuperação e reprovados**
+*  **Edição de dados** de um aluno já existente
+*  **Exclusão de estudantes**
+*  **Encerramento do programa**
 
 ## 🗂️ Estrutura do Projeto
 
@@ -58,7 +58,7 @@ O código está dividido em **módulos** para manter a organização:
 
 ## 🛠️ Tecnologias Utilizadas
 
-* **Node.js**
+* **Node.js** ![Node.js](https://raw.githubusercontent.com/github/explore/main/topics/nodejs/nodejs.png)
 * **Readline** (para interação via terminal)
 * **Chalk** (para cores no terminal)
 * **Módulos nativos do JavaScript (ESM)**
