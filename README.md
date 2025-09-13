@@ -2,7 +2,7 @@
 
 Este projeto é um **sistema de gerenciamento de estudantes** feito em **Node.js**, que roda no **terminal**.
 Ele permite cadastrar, editar e excluir estudantes, além de registrar suas notas e idades.
-**Este projeto foi desenvolvido através do curso Programadores do Amanhã. É o primeiro projeto passado para os alunos desenvolverem**
+**Este projeto foi desenvolvido através do curso Programadores do Amanhã. É o primeiro projeto passado para os alunos desenvolverem**.
 
 ## ✨ Funcionalidades
 
