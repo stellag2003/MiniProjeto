@@ -58,7 +58,7 @@ O código está dividido em **módulos** para manter a organização:
 
 ## 🛠️ Tecnologias Utilizadas
 
-* **Node.js** ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white)
+* ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white)
 * **Readline** (para interação via terminal)
 * **Chalk** (para cores no terminal)
 * **Módulos nativos do JavaScript (ESM)**
