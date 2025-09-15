@@ -2,6 +2,7 @@ import { rl } from "./entrada.js";
 import { voltaMenu } from "./voltaMenu.js";
 import { relatorioAlunos } from "./relatorios.js";
 import { menu } from "./menu.js";
+import chalk from 'chalk';
 
 /* 
 -É um array de objetos
@@ -34,24 +35,24 @@ function cadastraAlunos() {
     console.log("\n");
     rl.question('Digite o nome do novo bruxinho: ', (resposta) => {
 
-        if (alunos.includes(resposta)) {
-            console.log('Esse aluno já está cadastrado, tente novamente!')
+        if (alunos.some(a => a.nome.toLowerCase() === resposta.toLowerCase())) {
+            console.log(chalk.red('Esse aluno já está cadastrado, tente novamente!'));
             cadastraAlunos();
         }
 
         else {
 
             if (!/^[A-Za-zÀ-ÿ\s]+$/.test(resposta) || resposta.length < 3 || resposta === '') {
-                console.log('Nome inválido!');
+                console.log(chalk.red('Nome inválido!'));
                 return cadastraAlunos();
             }
 
             const alunoNovo = { nome: resposta, idade: 0, notas: [] };
 
-            rl.question('Digite a idade: (Só são permitidas idades de 14 a 16 anos)', (idade) => {
+            rl.question('Digite a idade: (Só são permitidas idades de 14 a 16 anos) ', (idade) => {
 
                 if (idade < 14 || idade > 16 || isNaN(idade) || idade === '') {
-                    console.log('Idade inválida!');
+                    console.log(chalk.red('Idade inválida!'));
                     return cadastraAlunos();
                 }
                 else {
@@ -65,15 +66,15 @@ function cadastraAlunos() {
 
             function pedirNota(i, aluno) {
                 if (i >= 4) {
-                    console.log("Aluno cadastrado!");
-                    console.log(alunos);
+                    console.log(chalk.greenBright("Aluno cadastrado com sucesso!"));
+                    console.log(chalk.white(alunos));
                     return voltaMenu();
                 }
 
-                console.log('Por favor, cadastre 4 notas no novo bruxinho');
+                console.log(chalk.yellow('Por favor, cadastre 4 notas no novo bruxinho'));
                 rl.question(`Digite a nota ${i + 1}: `, (nota) => {
                     if (nota < 0 || nota > 10 || nota === '' || isNaN(nota)) {
-                        console.log("Nota inválida!");
+                        console.log(chalk.red("Nota inválida!"));
                         return pedirNota(i, aluno);
                     }
                     aluno.notas.push(Number(nota));
@@ -94,18 +95,18 @@ function deletaAluno() {
     rl.question("Digite o nome do aluno a ser deletado: ", nome => {
 
         if (nome === '' || nome.length < 3 || !/^[A-Za-zÀ-ÿ\s]+$/.test(nome)) {
-            console.log('Nome inválido, tente novamente!');
+            console.log(chalk.red('Nome inválido, tente novamente!'));
             deletaAluno();
         }
         else {
             const index = alunos.findIndex(aluno => aluno.nome.toLowerCase() === nome.toLowerCase());
 
             if (index === -1) {
-                console.log("Aluno não encontrado! Nenhum aluno foi deletado.");
+                console.log(chalk.red("Aluno não encontrado! Nenhum aluno foi deletado."));
                 deletaAluno();
             } else {
                 alunos.splice(index, 1);
-                console.log("Aluno deletado com sucesso!");
+                console.log(chalk.greenBright("Aluno deletado com sucesso!"));
                 relatorioAlunos();
                 voltaMenu();
             }
@@ -114,7 +115,6 @@ function deletaAluno() {
 
     });
 }
-
 
 /*
 - Atualiza aluno
@@ -132,19 +132,19 @@ function atualizaAluno() {
     rl.question("Digite o nome do aluno que deseja atualizar: ", (nome) => {
         const alunoEncontrado = alunos.find(a => a.nome.toLowerCase().includes(nome.toLowerCase()));
         if (!alunoEncontrado) {
-            console.log("Aluno não encontrado!");
+            console.log(chalk.red("Aluno não encontrado!"));
             return voltaMenu();
         }
         rl.question("Digite o novo nome: ", (novoNome) => {
             if (!/^[A-Za-zÀ-ÿ\s]+$/.test(novoNome) || novoNome.length < 3 || novoNome === '') {
-                console.log("Nome inválido!");
+                console.log(chalk.red("Nome inválido!"));
                 return atualizaAluno();
             }
             alunoEncontrado.nome = novoNome;
 
             rl.question("Digite a nova idade: ", (novaIdade) => {
                 if (novaIdade < 14 || novaIdade > 16 || novaIdade === '' || isNaN(novaIdade)) {
-                    console.log("Idade inválida!");
+                    console.log(chalk.red("Idade inválida!"));
                     return atualizaAluno();
                 }
                 else {
@@ -160,13 +160,13 @@ function atualizaAluno() {
 
     function pedirNotaAtualizacao(i, aluno) {
         if (i >= 4) {
-            console.log("Aluno atualizado!");
-            console.log(alunos);
+            console.log(chalk.greenBright("Aluno atualizado com sucesso!"));
+            console.log(chalk.white(alunos));
             return voltaMenu();
         }
         rl.question(`Digite a nota ${i + 1}: `, (nota) => {
             if (nota < 0 || nota > 10 || nota === '' || isNaN(nota)) {
-                console.log("Nota inválida!");
+                console.log(chalk.red("Nota inválida!"));
                 return pedirNotaAtualizacao(i, aluno);
             }
             aluno.notas.push(Number(nota));
@@ -179,27 +179,27 @@ function atualizaAluno() {
 -Busca aluno
 -a busca é feita pelo nome
 -após o usuário digitar o nome a ser pesquisado há uma verificação
-=se o nome for vazio, ou um número, ou for menor que três, aparecerá uma mensagem de erro, e a função será chamada novamente
+-se o nome for vazio, ou um número, ou for menor que três, aparecerá uma mensagem de erro, e a função será chamada novamente
 -caso o nome passe dessas verificações ele será pesquisado, usando o método find()
 -se o nome for encontrado, o nome do aluno vai aparecer, se não, vai aparecer uma mensagem de "Aluno não encontrado", e o sistema volta pro menu
 */
 function buscaAluno() {
     rl.question("Digite o nome do aluno que deseja pesquisar: ", (nome) => {
         if (nome === '' || !/^[A-Za-zÀ-ÿ\s]+$/.test(nome) || nome.length < 3) {
-            console.log('Nome inválido, tente novamente!');
+            console.log(chalk.red('Nome inválido, tente novamente!'));
             buscaAluno();
         }
         else {
 
             const alunoEncontrado = alunos.find(a => a.nome.toLowerCase().includes(nome.toLowerCase()));
             if (alunoEncontrado) {
-                console.log(`Aluno encontrado: ${alunoEncontrado.nome}`);
+                console.log(chalk.greenBright(`Aluno encontrado: ${alunoEncontrado.nome}`));
                 voltaMenu();
             } else {
-                console.log("Aluno não encontrado!");
+                console.log(chalk.red("Aluno não encontrado!"));
                 menu();
             }
-            
+
 
         }
     });

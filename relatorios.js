@@ -1,6 +1,6 @@
 import { alunos } from "./alunos.js";
 import { voltaMenu } from "./voltaMenu.js";
-
+import chalk from 'chalk';
 
 /*
 -Lista todos os alunos
@@ -8,8 +8,9 @@ import { voltaMenu } from "./voltaMenu.js";
 -depois disso, os nomes são impressos no console, e a função voltaMenu é chamada
 */
 function relatorioAlunos() {
-  console.log("\nRelatório de alunos:");
-  alunos.forEach(aluno => console.log(aluno.nome));
+  console.log(chalk.yellowBright('---Lista de todos os alunos---'));
+  alunos.forEach(aluno => console.log(chalk.white(aluno.nome)));
+  console.log(chalk.yellowBright('-----------------------------'));
   voltaMenu();
 }
 
@@ -21,11 +22,12 @@ function relatorioAlunos() {
 -por fim, a função voltaMenu é chamada
 */
 function relatorioAlunosAprovados() {
-  console.log("\nAlunos aprovados:");
+  console.log(chalk.greenBright('---Alunos Aprovados---'));
   alunos.forEach(aluno => {
     const media = aluno.notas.reduce((acc,n)=>acc+n)/aluno.notas.length;
-    if (media >= 7) console.log(`${aluno.nome} - média: ${media}`);
+    if (media >= 7) console.log(chalk.green(`${aluno.nome} - média: ${media.toFixed(1)}`));
   });
+  console.log(chalk.greenBright('----------------------'));
   voltaMenu();
 }
 
@@ -37,11 +39,12 @@ function relatorioAlunosAprovados() {
 -por fim, a função voltaMenu é chamada
 */
 function relatorioAlunosReprovados() {
-  console.log("\nAlunos reprovados:");
+  console.log(chalk.redBright('---Alunos Reprovados---'));
   alunos.forEach(aluno => {
     const media = aluno.notas.reduce((acc,n)=>acc+n)/aluno.notas.length;
-    if (media < 5) console.log(`${aluno.nome} - média: ${media}`);
+    if (media < 5) console.log(chalk.red(`${aluno.nome} - média: ${media.toFixed(1)}`));
   });
+  console.log(chalk.redBright('-----------------------'));
   voltaMenu();
 }
 
@@ -53,11 +56,12 @@ function relatorioAlunosReprovados() {
 -por fim, a função voltaMenu é chamada
 */
 function relatorioAlunosRecuperacao() {
-  console.log("\nAlunos em recuperação:");
+  console.log(chalk.yellowBright('---Alunos em Recuperação---'));
   alunos.forEach(aluno => {
     const media = aluno.notas.reduce((acc,n)=>acc+n)/aluno.notas.length;
-    if (media >=5 && media <7) console.log(`${aluno.nome} - média: ${media}`);
+    if (media >=5 && media <7) console.log(chalk.yellow(`${aluno.nome} - média: ${media.toFixed(1)}`));
   });
+  console.log(chalk.yellowBright('---------------------------'));
   voltaMenu();
 }
 
@@ -69,10 +73,15 @@ function relatorioAlunosRecuperacao() {
 -por fim, a função voltaMenu é chamada
 */
 function calculaMediaALuno() {
+  console.log(chalk.yellowBright('---Média individual---'));
   alunos.forEach(aluno => {
     const media = aluno.notas.reduce((acc,n)=>acc+n)/aluno.notas.length;
-    console.log(`${aluno.nome}: ${media.toFixed(1)}`);
+    // cor baseada na média
+    if (media >= 7) console.log(chalk.green(`${aluno.nome}: ${media.toFixed(1)}`));
+    else if (media >= 5) console.log(chalk.yellow(`${aluno.nome}: ${media.toFixed(1)}`));
+    else console.log(chalk.red(`${aluno.nome}: ${media.toFixed(1)}`));
   });
+  console.log(chalk.yellowBright('----------------------'));
   voltaMenu();
 }
 
@@ -87,9 +96,11 @@ function calculaMediaALuno() {
 -por fim, a função voltaMenu é chamada
 */
 function calculaMediaGeral() {
+  console.log(chalk.cyanBright('---Média geral da turma---'));
   let todasNotas = [].concat(...alunos.map(aluno => aluno.notas));
   let media = todasNotas.reduce((acc,n)=>acc+n)/todasNotas.length;
   console.log(`Média geral da turma: ${media.toFixed(1)}`);
+  console.log(chalk.cyanBright('--------------------------'));
   voltaMenu();
 }
 
@@ -103,6 +114,7 @@ function calculaMediaGeral() {
 - Chama a função voltaMenu
 */
 function calculaMaiorMedia() {
+  console.log(chalk.magentaBright('---Aluno Destaque---'));
   let maiorMedia = 0;
   let destaque = '';
   alunos.forEach(aluno => {
@@ -112,8 +124,17 @@ function calculaMaiorMedia() {
       destaque = aluno.nome;
     }
   });
-  console.log(`Aluno destaque: ${destaque}, sua média é: (${maiorMedia.toFixed(1)})`);
+  console.log(chalk.magentaBright(`Aluno destaque: ${chalk.bold(destaque)}, média: ${maiorMedia.toFixed(1)}`));
+  console.log(chalk.magentaBright('------------------'));
   voltaMenu();
 }
 
-export { relatorioAlunos, relatorioAlunosAprovados, relatorioAlunosReprovados, relatorioAlunosRecuperacao, calculaMediaALuno, calculaMediaGeral, calculaMaiorMedia };
+export { 
+  relatorioAlunos, 
+  relatorioAlunosAprovados, 
+  relatorioAlunosReprovados, 
+  relatorioAlunosRecuperacao, 
+  calculaMediaALuno, 
+  calculaMediaGeral, 
+  calculaMaiorMedia 
+};
